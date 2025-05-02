@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BugBank - Painel</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="asideUser">
+    <img src="/imgs/user.png" alt="Foto do usuário">
+    <h1 class="usuario">Olá, <span id="user-name"></span></h1>
+  </div>
+
+  <div class="asideConta">
+    <div class="acoes">
+      <p class="saldoConta">Saldo: <span>R$ </span><span id="saldo"></span></p>
+      
+      <button data-cy="transferencia" id="btn-transferencia">Transferência</button>
+      <button data-cy="extrato" id="btn-extrato">Extrato</button>
+      <button onclick="indisponivel()">Saque</button>
+      <button onclick="indisponivel()">Pagamentos</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btn-transferencia').addEventListener('click', () => {
+      window.location.href = 'transferencia.html';
+    });
+
+    function indisponivel() {
+      alert("Função indisponível no momento.");
+    }
+
+
+    document.getElementById('btn-extrato').addEventListener('click', () => {
+      window.location.href = 'extrato.html';
+    });
+
+    function indisponivel() {
+      alert("Função indisponível no momento.");
+    }
+  </script>
+  
+  <script src="js/script.js"></script>
+</body>
+</html>

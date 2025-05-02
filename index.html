@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BugBank - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="intro">
+    <div class="logo">
+      <i class="fa-solid fa-bug fa-2xl" style="color: #025508;"></i>       
+      <h1>BugBank</h1>
+    </div>    
+    <h2>O banco com bugs e falhas do seu jeito</h2>
+    <h3>Faça transferências e pagamentos com bugs e pratique testes com sucesso em um cenário quase real!</h3>
+    <img src="/imgs/cartao.png" alt="">
+  </div>
+
+  <div class="container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Senha" required>
+      <button type="submit">Acessar</button>
+      <button type="button" data-cy="registrar" onclick="window.location.href='cadastro.html'">Registrar</button>
+    </form>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
