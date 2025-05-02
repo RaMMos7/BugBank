@@ -64,10 +64,13 @@ http-server .</code></pre>
 
 <hr>
 
-<h2>👨‍💻 Autor</h2>
+<h2>👨‍💻 Autores</h2>
 <ul>
   <li><strong>Miguel Ramos</strong><br>
     GitHub: <a href="https://github.com/RaMMos7" target="_blank">@RaMMos7</a>
+  </li>
+   <li><strong>João Gabriel</strong><br>
+    GitHub: <a href="https://github.com/Joao-gabriel-51LV4" target="_blank">@51LV4</a>
   </li>
 </ul>
 
