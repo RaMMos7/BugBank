@@ -1,43 +1,72 @@
-describe('Criação de um User', () => {
-  it('Deve acessar a página inicial e clicar em Registrar', () => {
-    cy.visit('index.html');
-    cy.get('[data-cy="registrar"]').click();
-    cy.url().should('include', 'cadastro.html');
-  });
+describe('Fluxo completo de criação, login, transferência e extrato', () => {
+  const nome = 'Miguel';
+  const email = 'miguel@examplo.com';
+  const senha = 'senha123';
+  const email2 = 'henry@gmail.com';
+  const valorTransferencia = '200';
+  const nome2 = 'Henry';
+  const senha2 = '123';
 
-  it('Criação de um Usuário', () => {
-    cy.visit('cadastro.html');
-    cy.get('#nome').type('Miguel Ramos');
-    cy.get('#email').type('miguelramos@gmail.com');
-    cy.get('#senha').type('senha007');
-    cy.get('#confirmar-senha').type('senha007');
+  it('1. Cria uma nova conta com saldo', () => {
+    cy.visit('index.html');
+    cy.contains('Registrar').click();
+    cy.url().should('include', 'cadastro.html');
+
+    cy.get('#nome').type(nome);
+    cy.get('#email').type(email);
+    cy.get('#senha').type(senha);
+    cy.get('#confirmar-senha').type(senha);
     cy.get('#conta-com-saldo').check();
     cy.get('button[type="submit"]').click();
-  });
-});
 
-describe('Fazendo o login', () => {
-  it('Login e acesso ao Dashboard', () => {
-    cy.visit('index.html');
-    cy.get('#login-email').type('miguelramos@gmail.com');
-    cy.get('#login-password').type('senha007');
+     
+    cy.contains('Registrar').click();
+    cy.url().should('include', 'cadastro.html');
+
+    cy.get('#nome').type(nome2);
+    cy.get('#email').type(email2);
+    cy.get('#senha').type(senha2);
+    cy.get('#confirmar-senha').type(senha2);
+    cy.get('#conta-com-saldo').check();
     cy.get('button[type="submit"]').click();
-    cy.url().should('include', 'dashboard.html');
+
+    cy.visit('index.html');
+    cy.get('#login-email').type(email);
+    cy.get('#login-password').type(senha);
+    cy.get('button[type="submit"]').click();
+
+
+    cy.location('pathname', { timeout: 10000 }).should('include', 'dashboard.html');
+
+    cy.contains('Transferência').click();
+    cy.get('#destinatario').type(email2);
+    cy.get('#valor').type('200');
+    cy.get('button[type="submit"]').click();
+
+
+    cy.contains('Extrato').click();
+    cy.get('#lista-extrato', { timeout: 10000 }).should('contain', 'Transferência enviada');
+
+    cy.visit('index.html');
+    cy.get('#login-email').type(email2);
+    cy.get('#login-password').type(senha2);
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('Extrato').click();
+    cy.get('#lista-extrato', { timeout: 10000 }).should('contain', 'Transferência recebida');
+
+    cy.visit('index.html');
+    cy.get('#login-email').type(email);
+    cy.get('#login-password').type(senha);
+    cy.get('button[type="submit"]').click();
+    cy.location('pathname', { timeout: 10000 }).should('include', 'dashboard.html');
+    cy.contains('800');
+
+
   });
+  
 });
 
-describe('Conhecendo a dashboard', () => {
-  it('Fazendo uma transferência', () => {
-    cy.visit('dashboard.html');
-    cy.get('[data-cy="transferencia"]').click();
-    cy.url().should('include', 'transferencia.html');
-    cy.get('#destinatario').type('cinderela@gmail.com')
-    cy.get('#valor').type('35000')
-    cy.get('button').click()
-  });
 
-  it('Fazendo um extrato', () => {
-    cy.visit('dashboard.html');
-    cy.get('[data-cy="extrato"]').click();
-  });
-});
+
+ 

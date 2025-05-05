@@ -1,6 +1,5 @@
 const users = JSON.parse(localStorage.getItem('users')) || [];
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
+const currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
 // Cadastro
 const cadastroForm = document.getElementById('cadastro-form');
 if (cadastroForm) {
@@ -40,16 +39,22 @@ if (loginForm) {
 // Dashboard
 const userName = document.getElementById('user-name');
 const saldo = document.getElementById('saldo');
+
 if (userName && saldo && currentUser) {
   userName.textContent = currentUser.nome;
   saldo.textContent = currentUser.saldo.toFixed(2);
 }
+
 
 // Transferência
 const transferenciaForm = document.getElementById('transferencia-form');
 if (transferenciaForm) {
   transferenciaForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    
+    let users = JSON.parse(localStorage.getItem('users')) || []; // ← atualizar a lista sempre
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
     const destinatarioEmail = document.getElementById('destinatario').value;
     const valor = parseFloat(document.getElementById('valor').value);
     const destinatario = users.find(u => u.email === destinatarioEmail);
@@ -57,17 +62,30 @@ if (transferenciaForm) {
     if (!destinatario) return alert('Usuário não encontrado');
     if (valor > currentUser.saldo) return alert('Saldo insuficiente');
 
-    currentUser.saldo -= valor;
-    destinatario.saldo += valor;
+    // Atualiza os saldos
+    currentUser.saldo -= valor*2;
+    destinatario.saldo += valor; // banco robou a metade 
+
+    // Atualiza os extratos
     currentUser.extrato.push({ tipo: 'Transferência enviada', valor: -valor });
     destinatario.extrato.push({ tipo: 'Transferência recebida', valor: valor });
 
+    // Atualizar currentUser e destinatário no array users
+    const currentUserIndex = users.findIndex(u => u.email === currentUser.email);
+    const destinatarioIndex = users.findIndex(u => u.email === destinatario.email);
+
+    users[currentUserIndex] = currentUser;
+    users[destinatarioIndex] = destinatario;
+
+    // Salvar no localStorage
     localStorage.setItem('users', JSON.stringify(users));
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
     alert('Transferência realizada com sucesso!');
     window.location.href = 'dashboard.html';
   });
 }
+
 
 // Extrato
 const extratoSaldo = document.getElementById('saldo-extrato');

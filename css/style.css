@@ -30,7 +30,7 @@ body {
   margin-top: 4%;
 }
 
-.intro{
+.intro {
   padding: 3rem;
 }
 
@@ -128,7 +128,10 @@ form {
   gap: 1rem;
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="number"] {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
   padding: 0.8rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -149,6 +152,28 @@ button:hover {
   background-color: #45a049;
 }
 
+/* Botão "Voltar para o Login" */
+.voltarLogin {
+  font-size: 0.9rem;
+  background: none;
+  color: #4CAF50;
+  text-decoration: underline;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.voltarLogin:hover {
+  color:#4CAF50;
+  background-color: #fefffe;
+  border-color: #4CAF50;
+  
+}
+
 /* Responsividade para telas menores */
 @media (max-width: 767px) {
   body {
@@ -162,12 +187,14 @@ button:hover {
     font-size: 1.5rem;
   }
 
-  .intro h2, .intro h3 {
+  .intro h2,
+  .intro h3 {
     width: 100%;
     font-size: 1rem;
   }
 
-  .acoes, .container {
+  .acoes,
+  .container {
     width: 90%;
     padding: 1rem;
   }
